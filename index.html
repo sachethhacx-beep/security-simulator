@@ -1,0 +1,279 @@
+@echo off
+color 0a
+title Matrix Rain
+:start
+echo %random% %random% %random% %random% %random% %random% %random% %random% %random% %random%
+goto start
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Scanner</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background: #050505;
+        color: white;
+        font-family: Consolas, monospace;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .box {
+        width: min(700px, 92%);
+        border: 1px solid #ff2020;
+        box-shadow: 0 0 30px #600000;
+        padding: 30px;
+        background: #0b0b0b;
+    }
+
+    h1 {
+        color: #ff2020;
+        text-align: center;
+        font-size: 30px;
+        margin-top: 0;
+    }
+
+    .warning {
+        text-align: center;
+        color: #aaa;
+        margin-bottom: 30px;
+    }
+
+    .status {
+        color: #ff3030;
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+    .bar {
+        width: 100%;
+        height: 22px;
+        background: #222;
+        border: 1px solid #555;
+        overflow: hidden;
+    }
+
+    .progress {
+        width: 0%;
+        height: 100%;
+        background: #e00000;
+        transition: width .15s;
+    }
+
+    .percent {
+        text-align: right;
+        margin-top: 8px;
+        color: #aaa;
+    }
+
+    .logs {
+        height: 180px;
+        margin-top: 25px;
+        padding: 15px;
+        background: #020202;
+        border: 1px solid #222;
+        overflow: hidden;
+        color: #aaa;
+        font-size: 13px;
+    }
+
+    .threat {
+        display: none;
+        margin-top: 25px;
+        padding: 20px;
+        border: 2px solid #ff2020;
+        background: #260000;
+        text-align: center;
+    }
+
+    .threat h2 {
+        color: #ff2020;
+    }
+
+    button {
+        display: block;
+        margin: 25px auto 0;
+        padding: 13px 25px;
+        background: #d00000;
+        color: white;
+        border: none;
+        font-family: inherit;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #ff2020;
+    }
+
+    .prank {
+        display: none;
+        text-align: center;
+        color: #00ff66;
+        font-size: 30px;
+        font-weight: bold;
+        margin-top: 25px;
+    }
+
+    .disclaimer {
+        text-align: center;
+        color: #555;
+        font-size: 11px;
+        margin-top: 25px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h1>⚠ SECURITY CENTER</h1>
+
+    <div class="warning">
+        ADVANCED SYSTEM SECURITY SCANNER
+    </div>
+
+    <div class="status" id="status">
+        INITIALIZING SCANNER...
+    </div>
+
+    <div class="bar">
+        <div class="progress" id="progress"></div>
+    </div>
+
+    <div class="percent" id="percent">0%</div>
+
+    <div class="logs" id="logs">
+        > Starting security engine...
+    </div>
+
+    <div class="threat" id="threat">
+        <h2>⚠ THREAT DETECTED</h2>
+        <p>Critical simulated threat found.</p>
+        <p>Threat ID: DEMO-TROJAN-001</p>
+        <button onclick="revealPrank()">REMOVE THREAT</button>
+    </div>
+
+    <div class="prank" id="prank">
+        😂 GOT YOU!<br>
+        THIS WAS JUST A PRANK!
+    </div>
+
+    <button id="start" onclick="startScan()">
+        START SECURITY SCAN
+    </button>
+
+    <div class="disclaimer">
+        PRANK SIMULATION • NO DEVICE DATA ACCESSED
+    </div>
+
+</div>
+
+<script>
+let running = false;
+
+const messages = [
+    "Checking browser environment...",
+    "Analyzing simulated system activity...",
+    "Checking simulated applications...",
+    "Scanning simulated network activity...",
+    "Analyzing security status...",
+    "Searching for suspicious activity...",
+    "Running final security analysis..."
+];
+
+function addLog(message) {
+    const logs = document.getElementById("logs");
+
+    const line = document.createElement("div");
+    line.textContent = "> " + message;
+
+    logs.appendChild(line);
+    logs.scrollTop = logs.scrollHeight;
+}
+
+function startScan() {
+
+    if (running) return;
+
+    running = true;
+
+    const progress = document.getElementById("progress");
+    const percent = document.getElementById("percent");
+    const status = document.getElementById("status");
+    const threat = document.getElementById("threat");
+    const prank = document.getElementById("prank");
+    const start = document.getElementById("start");
+
+    threat.style.display = "none";
+    prank.style.display = "none";
+    start.style.display = "none";
+
+    let value = 0;
+
+    const timer = setInterval(() => {
+
+        value++;
+
+        progress.style.width = value + "%";
+        percent.textContent = value + "%";
+
+        if (value % 12 === 0) {
+            const message =
+                messages[Math.floor(Math.random() * messages.length)];
+
+            status.textContent = message;
+            addLog(message);
+        }
+
+        if (value === 85) {
+            status.textContent = "⚠ SUSPICIOUS ACTIVITY DETECTED";
+            addLog("WARNING: Suspicious simulated activity detected!");
+        }
+
+        if (value >= 100) {
+
+            clearInterval(timer);
+
+            status.textContent = "⚠ CRITICAL THREAT DETECTED";
+            addLog("CRITICAL: Simulated threat detected!");
+
+            setTimeout(() => {
+                threat.style.display = "block";
+            }, 700);
+
+            running = false;
+        }
+
+    }, 70);
+}
+
+function revealPrank() {
+
+    document.getElementById("threat").style.display = "none";
+
+    document.getElementById("status").textContent =
+        "THREAT REMOVED";
+
+    document.getElementById("prank").style.display = "block";
+
+    document.getElementById("start").style.display = "block";
+
+    document.getElementById("start").textContent =
+        "RUN AGAIN";
+}
+</script>
+
+</body>
+</html>
